@@ -56,10 +56,9 @@ The app follows an MVVM architecture for easier navigation and maintenance
 
 ## Screenshots
 
-![Home screen - light theme](https://github.com/user-attachments/assets/4580c723-ed2c-4be0-9d9a-f80cb8d5a7e3)
-
-![Add route screen - light theme](https://github.com/user-attachments/assets/21fed47c-fcc1-480f-acc7-7706e6297b97)
-
-![Route details screen - light theme](https://github.com/user-attachments/assets/338488fa-3366-48f4-aaa9-de289b960f5f)
-
-![Home screen - dark theme](https://github.com/user-attachments/assets/d72544db-85c4-4304-a63b-c428f665a6ff)
+<div style="display: flex; flex-wrap: wrap; justify-content: space-around; gap: 10px;">
+    <img src="https://github.com/user-attachments/assets/4580c723-ed2c-4be0-9d9a-f80cb8d5a7e3" alt="Home screen - light theme" width="300">
+    <img src="https://github.com/user-attachments/assets/d72544db-85c4-4304-a63b-c428f665a6ff" alt="Home screen - dark theme" width="300">
+    <img src="https://github.com/user-attachments/assets/21fed47c-fcc1-480f-acc7-7706e6297b97" alt="Add route screen - light theme" width="300">
+    <img src="https://github.com/user-attachments/assets/338488fa-3366-48f4-aaa9-de289b960f5f" alt="Route details screen - light theme" width="300">
+</div>
