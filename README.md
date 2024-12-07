@@ -50,9 +50,9 @@ IDE: Install an IDE such as Android Studio or Visual Studio Code.
 The app follows an MVVM architecture for easier navigation and maintenance
 
 ### Third-Party Packages
-- date_time_picker: Used for selecting dates and times.
-- duration_picker_dialog_box: Custom picker for travel duration.
-- flutter: Core Flutter SDK for building the app.
+- `date_time_picker`: Used for selecting dates and times.
+- `duration_picker_dialog_box`: Custom picker for travel duration.
+- `flutter`: Core Flutter SDK for building the app.
 
 ## Screenshots
 
