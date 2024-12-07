@@ -22,12 +22,12 @@ IDE: Install an IDE such as Android Studio or Visual Studio Code.
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/your-repo/route-planner.git
+    git clone https://github.com/daria-georgiana505/Route-Planner-App.git
    ```
 
 2. Navigate to the project directory:
     ```bash
-   cd route-planner
+   cd mobile_non_native
    ```
    
 3. Install dependencies:
