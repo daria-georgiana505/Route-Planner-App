@@ -9,6 +9,15 @@ A Flutter application for planning and managing travel routes, allowing users to
 - **Notifications:** Option to enable notifications (placeholder functionality).
 - **Form Validation:** Real-time validation for all fields to ensure valid user inputs.
 
+## Screenshots
+
+<div style="display: flex; flex-wrap: wrap; justify-content: space-around; gap: 10px;">
+    <img src="https://github.com/user-attachments/assets/4580c723-ed2c-4be0-9d9a-f80cb8d5a7e3" alt="Home screen - light theme" width="300">
+    <img src="https://github.com/user-attachments/assets/d72544db-85c4-4304-a63b-c428f665a6ff" alt="Home screen - dark theme" width="300">
+    <img src="https://github.com/user-attachments/assets/21fed47c-fcc1-480f-acc7-7706e6297b97" alt="Add route screen - light theme" width="300">
+    <img src="https://github.com/user-attachments/assets/338488fa-3366-48f4-aaa9-de289b960f5f" alt="Route details screen - light theme" width="300">
+</div>
+
 ## Getting Started
 Follow these instructions to set up and run the project on your local machine.
 
@@ -53,12 +62,3 @@ The app follows an MVVM architecture for easier navigation and maintenance
 - `date_time_picker`: Used for selecting dates and times.
 - `duration_picker_dialog_box`: Custom picker for travel duration.
 - `flutter`: Core Flutter SDK for building the app.
-
-## Screenshots
-
-<div style="display: flex; flex-wrap: wrap; justify-content: space-around; gap: 10px;">
-    <img src="https://github.com/user-attachments/assets/4580c723-ed2c-4be0-9d9a-f80cb8d5a7e3" alt="Home screen - light theme" width="300">
-    <img src="https://github.com/user-attachments/assets/d72544db-85c4-4304-a63b-c428f665a6ff" alt="Home screen - dark theme" width="300">
-    <img src="https://github.com/user-attachments/assets/21fed47c-fcc1-480f-acc7-7706e6297b97" alt="Add route screen - light theme" width="300">
-    <img src="https://github.com/user-attachments/assets/338488fa-3366-48f4-aaa9-de289b960f5f" alt="Route details screen - light theme" width="300">
-</div>
