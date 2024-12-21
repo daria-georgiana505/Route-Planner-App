@@ -49,7 +49,6 @@ class _RouteFormViewState extends State<RouteFormView> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.travelTime);
 
     return AppBarLayoutWidget(
       title: 'Route Planner',
@@ -174,7 +173,7 @@ class _RouteFormViewState extends State<RouteFormView> {
                   Text(
                       'Duration',
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      color: Theme.of(context).primaryColor
+                        color: Theme.of(context).primaryColor
                     ),
                   ),
                   DurationPicker(

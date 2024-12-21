@@ -133,7 +133,7 @@ class _RouteViewState extends State<RouteView> {
                   style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  '${_parseDurationAsString(Duration(minutes: widget.route.travelTime))}',
+                  _parseDurationAsString(Duration(minutes: widget.route.travelTime)),
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 const SizedBox(height: 10),
