@@ -15,8 +15,19 @@ class _ListRoutesViewState extends State<ListRoutesView> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<RouteViewModel>(context, listen: false).loadRoutes();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      try {
+        await Provider.of<RouteViewModel>(context, listen: false).loadRoutes();
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Routes loaded successfully')));
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Failed to load routes: $e')));
+        }
+      }
     });
   }
 

@@ -1,6 +1,7 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:mobile_non_native/locator.dart';
 import 'package:mobile_non_native/repositories/RouteRepository.dart';
 import 'package:mobile_non_native/utils/CustomTheme.dart';
@@ -18,10 +19,16 @@ void main() {
   );
 }
 
+Logger logger = Logger();
+
+void _logError(Object error, StackTrace? stack) {
+  logger.e('Error: $error', error: error, stackTrace: stack);
+}
+
 class MyApp extends StatelessWidget {
   MyApp({super.key});
 
-  final RouteRepository _repository = RouteRepository();
+  final RouteRepository _repository = RouteRepository(logError: _logError);
 
   @override
   Widget build(BuildContext context) {

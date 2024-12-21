@@ -14,8 +14,13 @@ class RouteViewModel extends ChangeNotifier{
   List<RouteModelData> get routes => _routes;
 
   Future<void> loadRoutes() async {
-    _routes = await _repository.getAllRoutes();
-    notifyListeners();
+    try {
+      _routes = await _repository.getAllRoutes();
+    } catch (e) {
+      rethrow;
+    } finally {
+      notifyListeners();
+    }
   }
 
   Future<void> addRoute(
@@ -26,18 +31,23 @@ class RouteViewModel extends ChangeNotifier{
       Duration travelTime,
       bool notificationsEnabled
       ) async {
-    RouteDto routeToAdd = RouteDto.constructorWithNotificationsField(
+    try {
+      RouteDto routeToAdd = RouteDto.constructorWithNotificationsField(
         startLocation: startLocation,
         endLocation: endLocation,
         startDateTime: startDateTime,
         distanceKm: distanceKm,
         travelTime: travelTime,
         notificationsEnabled: notificationsEnabled
-    );
-    final newRouteId = await _repository.addRoute(routeToAdd);
-    final newRoute = await _repository.getRouteById(newRouteId);
-    _routes.add(newRoute);
-    notifyListeners();
+      );
+      final newRouteId = await _repository.addRoute(routeToAdd);
+      final newRoute = await _repository.getRouteById(newRouteId);
+      _routes.add(newRoute);
+    } catch (e) {
+      rethrow;
+    } finally {
+      notifyListeners();
+    }
   }
 
   Future<void> updateRoute(
@@ -49,27 +59,36 @@ class RouteViewModel extends ChangeNotifier{
       Duration travelTime,
       bool notificationsEnabled
       ) async {
-    RouteDto routeToUpdate = RouteDto.constructorWithNotificationsField(
-        startLocation: startLocation,
-        endLocation: endLocation,
-        startDateTime: startDateTime,
-        distanceKm: distanceKm,
-        travelTime: travelTime,
-        notificationsEnabled: notificationsEnabled
-    );
-    await _repository.updateRoute(routeId, routeToUpdate);
-    final updatedRoute = await _repository.getRouteById(routeId);
-    final index = _routes.indexWhere((route) => route.routeId == routeId);
-    if (index != -1) {
-      _routes[index] = updatedRoute;
+    try {
+      RouteDto routeToUpdate = RouteDto.constructorWithNotificationsField(
+          startLocation: startLocation,
+          endLocation: endLocation,
+          startDateTime: startDateTime,
+          distanceKm: distanceKm,
+          travelTime: travelTime,
+          notificationsEnabled: notificationsEnabled);
+      await _repository.updateRoute(routeId, routeToUpdate);
+      final updatedRoute = await _repository.getRouteById(routeId);
+      final index = _routes.indexWhere((route) => route.routeId == routeId);
+      if (index != -1) {
+        _routes[index] = updatedRoute;
+      }
+    } catch (e) {
+      rethrow;
+    } finally {
       notifyListeners();
     }
   }
 
   Future<void> deleteRoute(int routeId) async
   {
-    await _repository.deleteRoute(routeId);
-    _routes.removeWhere((route) => route.routeId == routeId);
-    notifyListeners();
+    try {
+      await _repository.deleteRoute(routeId);
+      _routes.removeWhere((route) => route.routeId == routeId);
+    } catch (e) {
+      rethrow;
+    } finally {
+      notifyListeners();
+    }
   }
 }

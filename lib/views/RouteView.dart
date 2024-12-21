@@ -33,10 +33,21 @@ class _RouteViewState extends State<RouteView> {
         ),
         TextButton(
           child: const Text('Confirm'),
-          onPressed: () {
-            Provider.of<RouteViewModel>(context, listen: false)
-                .deleteRoute(widget.route.routeId);
-            Navigator.of(context).pop();
+          onPressed: () async {
+            try {
+              await Provider.of<RouteViewModel>(context, listen: false)
+                  .deleteRoute(widget.route.routeId);
+              if (mounted) {
+                Navigator.of(context).pop();
+                ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Route deleted successfully')));
+              }
+            } catch (e) {
+              if (mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Failed to delete route: $e')));
+              }
+            }
           },
         ),
       ],
@@ -73,9 +84,27 @@ class _RouteViewState extends State<RouteView> {
                 distanceKm: widget.route.distanceKm,
                 travelTime: Duration(minutes: widget.route.travelTime),
                 notificationsEnabled: widget.route.notificationsEnabled,
-                onSubmit: (startLocation, endLocation, startDateTime, distanceKm, travelTime, notificationsEnabled) {
-                  Provider.of<RouteViewModel>(context, listen: false)
-                      .updateRoute(widget.route.routeId, startLocation, endLocation, startDateTime, distanceKm, travelTime, notificationsEnabled);
+                onSubmit: (startLocation, endLocation, startDateTime, distanceKm, travelTime, notificationsEnabled) async {
+                  try {
+                    await Provider.of<RouteViewModel>(context, listen: false)
+                        .updateRoute(
+                            widget.route.routeId,
+                            startLocation,
+                            endLocation,
+                            startDateTime,
+                            distanceKm,
+                            travelTime,
+                            notificationsEnabled);
+                    if (context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text('Route updated successfully')));
+                    }
+                  } catch (e) {
+                    if (context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text('Failed to update route: $e')));
+                    }
+                  }
                 },
               ),
             ),
