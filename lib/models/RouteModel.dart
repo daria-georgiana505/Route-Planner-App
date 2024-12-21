@@ -1,14 +1,13 @@
 
-class RouteModel{
-  int routeId;
-  String startLocation;
-  String endLocation;
-  DateTime startDateTime;
-  double distanceKm;
-  Duration travelTime;
-  bool notificationsEnabled = true;
-  DateTime createdAt = DateTime.timestamp();
+import 'package:drift/drift.dart';
 
-  RouteModel({required this.routeId, required this.startLocation, required this.endLocation, required this.startDateTime, required this.distanceKm, required this.travelTime});
-  RouteModel.constructorWithNotificationsField({required this.routeId, required this.startLocation, required this.endLocation, required this.startDateTime, required this.distanceKm, required this.travelTime, required this.notificationsEnabled});
+class RouteModel extends Table{
+  IntColumn get routeId => integer().autoIncrement()();
+  TextColumn get startLocation => text()();
+  TextColumn get endLocation => text()();
+  DateTimeColumn get startDateTime => dateTime()();
+  RealColumn get distanceKm => real()();
+  IntColumn get travelTime => integer()();
+  BoolColumn get notificationsEnabled => boolean().withDefault(Constant(true))();
+  DateTimeColumn get createdAt => dateTime().withDefault(Constant(DateTime.timestamp()))();
 }

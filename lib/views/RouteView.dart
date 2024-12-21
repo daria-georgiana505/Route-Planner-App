@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:mobile_non_native/database/database.dart';
 import 'package:mobile_non_native/models/RouteModel.dart';
 import 'package:mobile_non_native/views/RouteFormView.dart';
 import 'package:provider/provider.dart';
@@ -7,7 +8,7 @@ import 'package:provider/provider.dart';
 import '../viewmodels/RouteViewModel.dart';
 
 class RouteView extends StatefulWidget {
-  final RouteModel route;
+  final RouteModelData route;
 
   const RouteView({super.key, required this.route});
 
@@ -70,7 +71,7 @@ class _RouteViewState extends State<RouteView> {
                 endLocation: widget.route.endLocation,
                 startDateTime: widget.route.startDateTime,
                 distanceKm: widget.route.distanceKm,
-                travelTime: widget.route.travelTime,
+                travelTime: Duration(minutes: widget.route.travelTime),
                 notificationsEnabled: widget.route.notificationsEnabled,
                 onSubmit: (startLocation, endLocation, startDateTime, distanceKm, travelTime, notificationsEnabled) {
                   Provider.of<RouteViewModel>(context, listen: false)
@@ -132,7 +133,7 @@ class _RouteViewState extends State<RouteView> {
                   style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  '${_parseDurationAsString(widget.route.travelTime)}',
+                  '${_parseDurationAsString(Duration(minutes: widget.route.travelTime))}',
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 const SizedBox(height: 10),

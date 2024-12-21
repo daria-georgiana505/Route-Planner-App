@@ -14,16 +14,24 @@ class ListRoutesView extends StatefulWidget {
 
 class _ListRoutesViewState extends State<ListRoutesView> {
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<RouteViewModel>(context, listen: false).loadRoutes();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Consumer<RouteViewModel>(
       builder: (context, viewModel, child) {
-          final List<RouteModel> routes = viewModel.routes;
+          final routes = viewModel.routes;
 
           return ListView.builder(
               padding: const EdgeInsets.all(16),
               itemCount: routes.length,
               itemBuilder: (BuildContext context, int index) {
-                final RouteModel route = routes[index];
+                final route = routes[index];
 
                 return RouteView(route: route, key: ValueKey(route.routeId));
               },
