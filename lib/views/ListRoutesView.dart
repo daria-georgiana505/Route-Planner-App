@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:mobile_non_native/models/RouteModel.dart';
 import 'package:mobile_non_native/viewmodels/RouteViewModel.dart';
 import 'package:mobile_non_native/views/RouteView.dart';
 import 'package:provider/provider.dart';

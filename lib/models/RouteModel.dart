@@ -9,5 +9,5 @@ class RouteModel extends Table{
   RealColumn get distanceKm => real()();
   IntColumn get travelTime => integer()();
   BoolColumn get notificationsEnabled => boolean().withDefault(Constant(true))();
-  DateTimeColumn get createdAt => dateTime().withDefault(Constant(DateTime.timestamp()))();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
 }

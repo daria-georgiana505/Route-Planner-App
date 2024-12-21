@@ -66,7 +66,7 @@ class $RouteModelTable extends RouteModel
       'created_at', aliasedName, false,
       type: DriftSqlType.dateTime,
       requiredDuringInsert: false,
-      defaultValue: Constant(DateTime.timestamp()));
+      defaultValue: currentDateAndTime);
   @override
   List<GeneratedColumn> get $columns => [
         routeId,

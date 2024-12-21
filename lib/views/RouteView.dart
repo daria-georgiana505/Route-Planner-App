@@ -1,9 +1,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:mobile_non_native/database/database.dart';
-import 'package:mobile_non_native/models/RouteModel.dart';
 import 'package:mobile_non_native/views/RouteFormView.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 import '../viewmodels/RouteViewModel.dart';
 
@@ -43,9 +43,9 @@ class _RouteViewState extends State<RouteView> {
     );
   }
 
-  String _parseDateTimeAsString(DateTime dateTime)
-  {
-    return '${dateTime.day}/${dateTime.month}/${dateTime.year} ${dateTime.hour}:${dateTime.minute}';
+  String _parseDateTimeAsString(DateTime dateTime) {
+    final formatter = DateFormat('dd/MM/yyyy HH:mm');
+    return formatter.format(dateTime);
   }
 
   String _parseDurationAsString(Duration duration)
