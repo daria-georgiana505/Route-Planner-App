@@ -36,7 +36,7 @@ class _RouteFormViewState extends State<RouteFormView> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       widget.onSubmit(widget.startLocation, widget.endLocation, widget.startDateTime, widget.distanceKm, widget.travelTime, widget.notificationsEnabled);
-      Navigator.pop(context);
+      // Navigator.pop(context);
     }
   }
 

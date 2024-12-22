@@ -96,11 +96,13 @@ class _RouteViewState extends State<RouteView> {
                             travelTime,
                             notificationsEnabled);
                     if (context.mounted) {
+                      Navigator.pop(context);
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text('Route updated successfully')));
                     }
                   } catch (e) {
                     if (context.mounted) {
+                      Navigator.pop(context);
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text('Failed to update route: $e')));
                     }

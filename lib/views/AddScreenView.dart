@@ -35,11 +35,13 @@ class _AddScreenViewState extends State<AddScreenView> {
                   travelTime,
                   notificationsEnabled);
                 if (context.mounted) {
+                  Navigator.pop(context);
                 ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('Route added successfully')));
                 }
               } catch (e) {
                 if (context.mounted) {
+                  Navigator.pop(context);
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text('Failed to add route: $e')));
                 }
