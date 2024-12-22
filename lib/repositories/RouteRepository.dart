@@ -39,7 +39,6 @@ class RouteRepository {
         endLocation: Value(routeDto.endLocation),
         startDateTime: Value(routeDto.startDateTime),
         distanceKm: Value(routeDto.distanceKm),
-        travelTime: Value(routeDto.travelTime.inMinutes),
         notificationsEnabled: Value(routeDto.notificationsEnabled),
       );
       return await _db.into(_db.routeModel).insert(route);
@@ -56,7 +55,6 @@ class RouteRepository {
         endLocation: Value(updatedRouteDto.endLocation),
         startDateTime: Value(updatedRouteDto.startDateTime),
         distanceKm: Value(updatedRouteDto.distanceKm),
-        travelTime: Value(updatedRouteDto.travelTime.inMinutes),
         notificationsEnabled: Value(updatedRouteDto.notificationsEnabled),
       );
       await (_db.update(_db.routeModel)

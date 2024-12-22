@@ -22,17 +22,15 @@ class _AddScreenViewState extends State<AddScreenView> {
             endLocation: '',
             startDateTime: DateTime.now(),
             distanceKm: 0.0,
-            travelTime: Duration.zero,
             notificationsEnabled: false,
             onSubmit: (startLocation, endLocation, startDateTime, distanceKm,
-                travelTime, notificationsEnabled) async {
+                 notificationsEnabled) async {
               try {
                 await Provider.of<RouteViewModel>(context, listen: false).addRoute(
                   startLocation,
                   endLocation,
                   startDateTime,
                   distanceKm,
-                  travelTime,
                   notificationsEnabled);
                 if (context.mounted) {
                   Navigator.pop(context);

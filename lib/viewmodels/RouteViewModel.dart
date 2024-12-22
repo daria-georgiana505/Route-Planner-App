@@ -28,7 +28,6 @@ class RouteViewModel extends ChangeNotifier{
       String endLocation,
       DateTime startDateTime,
       double distanceKm,
-      Duration travelTime,
       bool notificationsEnabled
       ) async {
     try {
@@ -37,7 +36,6 @@ class RouteViewModel extends ChangeNotifier{
         endLocation: endLocation,
         startDateTime: startDateTime,
         distanceKm: distanceKm,
-        travelTime: travelTime,
         notificationsEnabled: notificationsEnabled
       );
       final newRouteId = await _repository.addRoute(routeToAdd);
@@ -56,7 +54,6 @@ class RouteViewModel extends ChangeNotifier{
       String endLocation,
       DateTime startDateTime,
       double distanceKm,
-      Duration travelTime,
       bool notificationsEnabled
       ) async {
     try {
@@ -65,7 +62,6 @@ class RouteViewModel extends ChangeNotifier{
           endLocation: endLocation,
           startDateTime: startDateTime,
           distanceKm: distanceKm,
-          travelTime: travelTime,
           notificationsEnabled: notificationsEnabled);
       await _repository.updateRoute(routeId, routeToUpdate);
       final updatedRoute = await _repository.getRouteById(routeId);

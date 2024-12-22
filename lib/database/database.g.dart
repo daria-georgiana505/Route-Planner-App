@@ -43,12 +43,6 @@ class $RouteModelTable extends RouteModel
   late final GeneratedColumn<double> distanceKm = GeneratedColumn<double>(
       'distance_km', aliasedName, false,
       type: DriftSqlType.double, requiredDuringInsert: true);
-  static const VerificationMeta _travelTimeMeta =
-      const VerificationMeta('travelTime');
-  @override
-  late final GeneratedColumn<int> travelTime = GeneratedColumn<int>(
-      'travel_time', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
   static const VerificationMeta _notificationsEnabledMeta =
       const VerificationMeta('notificationsEnabled');
   @override
@@ -74,7 +68,6 @@ class $RouteModelTable extends RouteModel
         endLocation,
         startDateTime,
         distanceKm,
-        travelTime,
         notificationsEnabled,
         createdAt
       ];
@@ -124,14 +117,6 @@ class $RouteModelTable extends RouteModel
     } else if (isInserting) {
       context.missing(_distanceKmMeta);
     }
-    if (data.containsKey('travel_time')) {
-      context.handle(
-          _travelTimeMeta,
-          travelTime.isAcceptableOrUnknown(
-              data['travel_time']!, _travelTimeMeta));
-    } else if (isInserting) {
-      context.missing(_travelTimeMeta);
-    }
     if (data.containsKey('notifications_enabled')) {
       context.handle(
           _notificationsEnabledMeta,
@@ -161,8 +146,6 @@ class $RouteModelTable extends RouteModel
           DriftSqlType.dateTime, data['${effectivePrefix}start_date_time'])!,
       distanceKm: attachedDatabase.typeMapping
           .read(DriftSqlType.double, data['${effectivePrefix}distance_km'])!,
-      travelTime: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}travel_time'])!,
       notificationsEnabled: attachedDatabase.typeMapping.read(
           DriftSqlType.bool, data['${effectivePrefix}notifications_enabled'])!,
       createdAt: attachedDatabase.typeMapping
@@ -182,7 +165,6 @@ class RouteModelData extends DataClass implements Insertable<RouteModelData> {
   final String endLocation;
   final DateTime startDateTime;
   final double distanceKm;
-  final int travelTime;
   final bool notificationsEnabled;
   final DateTime createdAt;
   const RouteModelData(
@@ -191,7 +173,6 @@ class RouteModelData extends DataClass implements Insertable<RouteModelData> {
       required this.endLocation,
       required this.startDateTime,
       required this.distanceKm,
-      required this.travelTime,
       required this.notificationsEnabled,
       required this.createdAt});
   @override
@@ -202,7 +183,6 @@ class RouteModelData extends DataClass implements Insertable<RouteModelData> {
     map['end_location'] = Variable<String>(endLocation);
     map['start_date_time'] = Variable<DateTime>(startDateTime);
     map['distance_km'] = Variable<double>(distanceKm);
-    map['travel_time'] = Variable<int>(travelTime);
     map['notifications_enabled'] = Variable<bool>(notificationsEnabled);
     map['created_at'] = Variable<DateTime>(createdAt);
     return map;
@@ -215,7 +195,6 @@ class RouteModelData extends DataClass implements Insertable<RouteModelData> {
       endLocation: Value(endLocation),
       startDateTime: Value(startDateTime),
       distanceKm: Value(distanceKm),
-      travelTime: Value(travelTime),
       notificationsEnabled: Value(notificationsEnabled),
       createdAt: Value(createdAt),
     );
@@ -230,7 +209,6 @@ class RouteModelData extends DataClass implements Insertable<RouteModelData> {
       endLocation: serializer.fromJson<String>(json['endLocation']),
       startDateTime: serializer.fromJson<DateTime>(json['startDateTime']),
       distanceKm: serializer.fromJson<double>(json['distanceKm']),
-      travelTime: serializer.fromJson<int>(json['travelTime']),
       notificationsEnabled:
           serializer.fromJson<bool>(json['notificationsEnabled']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
@@ -245,7 +223,6 @@ class RouteModelData extends DataClass implements Insertable<RouteModelData> {
       'endLocation': serializer.toJson<String>(endLocation),
       'startDateTime': serializer.toJson<DateTime>(startDateTime),
       'distanceKm': serializer.toJson<double>(distanceKm),
-      'travelTime': serializer.toJson<int>(travelTime),
       'notificationsEnabled': serializer.toJson<bool>(notificationsEnabled),
       'createdAt': serializer.toJson<DateTime>(createdAt),
     };
@@ -257,7 +234,6 @@ class RouteModelData extends DataClass implements Insertable<RouteModelData> {
           String? endLocation,
           DateTime? startDateTime,
           double? distanceKm,
-          int? travelTime,
           bool? notificationsEnabled,
           DateTime? createdAt}) =>
       RouteModelData(
@@ -266,7 +242,6 @@ class RouteModelData extends DataClass implements Insertable<RouteModelData> {
         endLocation: endLocation ?? this.endLocation,
         startDateTime: startDateTime ?? this.startDateTime,
         distanceKm: distanceKm ?? this.distanceKm,
-        travelTime: travelTime ?? this.travelTime,
         notificationsEnabled: notificationsEnabled ?? this.notificationsEnabled,
         createdAt: createdAt ?? this.createdAt,
       );
@@ -283,8 +258,6 @@ class RouteModelData extends DataClass implements Insertable<RouteModelData> {
           : this.startDateTime,
       distanceKm:
           data.distanceKm.present ? data.distanceKm.value : this.distanceKm,
-      travelTime:
-          data.travelTime.present ? data.travelTime.value : this.travelTime,
       notificationsEnabled: data.notificationsEnabled.present
           ? data.notificationsEnabled.value
           : this.notificationsEnabled,
@@ -300,7 +273,6 @@ class RouteModelData extends DataClass implements Insertable<RouteModelData> {
           ..write('endLocation: $endLocation, ')
           ..write('startDateTime: $startDateTime, ')
           ..write('distanceKm: $distanceKm, ')
-          ..write('travelTime: $travelTime, ')
           ..write('notificationsEnabled: $notificationsEnabled, ')
           ..write('createdAt: $createdAt')
           ..write(')'))
@@ -309,7 +281,7 @@ class RouteModelData extends DataClass implements Insertable<RouteModelData> {
 
   @override
   int get hashCode => Object.hash(routeId, startLocation, endLocation,
-      startDateTime, distanceKm, travelTime, notificationsEnabled, createdAt);
+      startDateTime, distanceKm, notificationsEnabled, createdAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -319,7 +291,6 @@ class RouteModelData extends DataClass implements Insertable<RouteModelData> {
           other.endLocation == this.endLocation &&
           other.startDateTime == this.startDateTime &&
           other.distanceKm == this.distanceKm &&
-          other.travelTime == this.travelTime &&
           other.notificationsEnabled == this.notificationsEnabled &&
           other.createdAt == this.createdAt);
 }
@@ -330,7 +301,6 @@ class RouteModelCompanion extends UpdateCompanion<RouteModelData> {
   final Value<String> endLocation;
   final Value<DateTime> startDateTime;
   final Value<double> distanceKm;
-  final Value<int> travelTime;
   final Value<bool> notificationsEnabled;
   final Value<DateTime> createdAt;
   const RouteModelCompanion({
@@ -339,7 +309,6 @@ class RouteModelCompanion extends UpdateCompanion<RouteModelData> {
     this.endLocation = const Value.absent(),
     this.startDateTime = const Value.absent(),
     this.distanceKm = const Value.absent(),
-    this.travelTime = const Value.absent(),
     this.notificationsEnabled = const Value.absent(),
     this.createdAt = const Value.absent(),
   });
@@ -349,21 +318,18 @@ class RouteModelCompanion extends UpdateCompanion<RouteModelData> {
     required String endLocation,
     required DateTime startDateTime,
     required double distanceKm,
-    required int travelTime,
     this.notificationsEnabled = const Value.absent(),
     this.createdAt = const Value.absent(),
   })  : startLocation = Value(startLocation),
         endLocation = Value(endLocation),
         startDateTime = Value(startDateTime),
-        distanceKm = Value(distanceKm),
-        travelTime = Value(travelTime);
+        distanceKm = Value(distanceKm);
   static Insertable<RouteModelData> custom({
     Expression<int>? routeId,
     Expression<String>? startLocation,
     Expression<String>? endLocation,
     Expression<DateTime>? startDateTime,
     Expression<double>? distanceKm,
-    Expression<int>? travelTime,
     Expression<bool>? notificationsEnabled,
     Expression<DateTime>? createdAt,
   }) {
@@ -373,7 +339,6 @@ class RouteModelCompanion extends UpdateCompanion<RouteModelData> {
       if (endLocation != null) 'end_location': endLocation,
       if (startDateTime != null) 'start_date_time': startDateTime,
       if (distanceKm != null) 'distance_km': distanceKm,
-      if (travelTime != null) 'travel_time': travelTime,
       if (notificationsEnabled != null)
         'notifications_enabled': notificationsEnabled,
       if (createdAt != null) 'created_at': createdAt,
@@ -386,7 +351,6 @@ class RouteModelCompanion extends UpdateCompanion<RouteModelData> {
       Value<String>? endLocation,
       Value<DateTime>? startDateTime,
       Value<double>? distanceKm,
-      Value<int>? travelTime,
       Value<bool>? notificationsEnabled,
       Value<DateTime>? createdAt}) {
     return RouteModelCompanion(
@@ -395,7 +359,6 @@ class RouteModelCompanion extends UpdateCompanion<RouteModelData> {
       endLocation: endLocation ?? this.endLocation,
       startDateTime: startDateTime ?? this.startDateTime,
       distanceKm: distanceKm ?? this.distanceKm,
-      travelTime: travelTime ?? this.travelTime,
       notificationsEnabled: notificationsEnabled ?? this.notificationsEnabled,
       createdAt: createdAt ?? this.createdAt,
     );
@@ -419,9 +382,6 @@ class RouteModelCompanion extends UpdateCompanion<RouteModelData> {
     if (distanceKm.present) {
       map['distance_km'] = Variable<double>(distanceKm.value);
     }
-    if (travelTime.present) {
-      map['travel_time'] = Variable<int>(travelTime.value);
-    }
     if (notificationsEnabled.present) {
       map['notifications_enabled'] = Variable<bool>(notificationsEnabled.value);
     }
@@ -439,7 +399,6 @@ class RouteModelCompanion extends UpdateCompanion<RouteModelData> {
           ..write('endLocation: $endLocation, ')
           ..write('startDateTime: $startDateTime, ')
           ..write('distanceKm: $distanceKm, ')
-          ..write('travelTime: $travelTime, ')
           ..write('notificationsEnabled: $notificationsEnabled, ')
           ..write('createdAt: $createdAt')
           ..write(')'))
@@ -464,7 +423,6 @@ typedef $$RouteModelTableCreateCompanionBuilder = RouteModelCompanion Function({
   required String endLocation,
   required DateTime startDateTime,
   required double distanceKm,
-  required int travelTime,
   Value<bool> notificationsEnabled,
   Value<DateTime> createdAt,
 });
@@ -474,7 +432,6 @@ typedef $$RouteModelTableUpdateCompanionBuilder = RouteModelCompanion Function({
   Value<String> endLocation,
   Value<DateTime> startDateTime,
   Value<double> distanceKm,
-  Value<int> travelTime,
   Value<bool> notificationsEnabled,
   Value<DateTime> createdAt,
 });
@@ -502,9 +459,6 @@ class $$RouteModelTableFilterComposer
 
   ColumnFilters<double> get distanceKm => $composableBuilder(
       column: $table.distanceKm, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<int> get travelTime => $composableBuilder(
-      column: $table.travelTime, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<bool> get notificationsEnabled => $composableBuilder(
       column: $table.notificationsEnabled,
@@ -540,9 +494,6 @@ class $$RouteModelTableOrderingComposer
   ColumnOrderings<double> get distanceKm => $composableBuilder(
       column: $table.distanceKm, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get travelTime => $composableBuilder(
-      column: $table.travelTime, builder: (column) => ColumnOrderings(column));
-
   ColumnOrderings<bool> get notificationsEnabled => $composableBuilder(
       column: $table.notificationsEnabled,
       builder: (column) => ColumnOrderings(column));
@@ -574,9 +525,6 @@ class $$RouteModelTableAnnotationComposer
 
   GeneratedColumn<double> get distanceKm => $composableBuilder(
       column: $table.distanceKm, builder: (column) => column);
-
-  GeneratedColumn<int> get travelTime => $composableBuilder(
-      column: $table.travelTime, builder: (column) => column);
 
   GeneratedColumn<bool> get notificationsEnabled => $composableBuilder(
       column: $table.notificationsEnabled, builder: (column) => column);
@@ -613,7 +561,6 @@ class $$RouteModelTableTableManager extends RootTableManager<
             Value<String> endLocation = const Value.absent(),
             Value<DateTime> startDateTime = const Value.absent(),
             Value<double> distanceKm = const Value.absent(),
-            Value<int> travelTime = const Value.absent(),
             Value<bool> notificationsEnabled = const Value.absent(),
             Value<DateTime> createdAt = const Value.absent(),
           }) =>
@@ -623,7 +570,6 @@ class $$RouteModelTableTableManager extends RootTableManager<
             endLocation: endLocation,
             startDateTime: startDateTime,
             distanceKm: distanceKm,
-            travelTime: travelTime,
             notificationsEnabled: notificationsEnabled,
             createdAt: createdAt,
           ),
@@ -633,7 +579,6 @@ class $$RouteModelTableTableManager extends RootTableManager<
             required String endLocation,
             required DateTime startDateTime,
             required double distanceKm,
-            required int travelTime,
             Value<bool> notificationsEnabled = const Value.absent(),
             Value<DateTime> createdAt = const Value.absent(),
           }) =>
@@ -643,7 +588,6 @@ class $$RouteModelTableTableManager extends RootTableManager<
             endLocation: endLocation,
             startDateTime: startDateTime,
             distanceKm: distanceKm,
-            travelTime: travelTime,
             notificationsEnabled: notificationsEnabled,
             createdAt: createdAt,
           ),

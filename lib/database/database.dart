@@ -17,7 +17,7 @@ class AppDb extends _$AppDb{
   AppDb() : super(_openConnection());
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 4;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -25,9 +25,8 @@ class AppDb extends _$AppDb{
       await m.createAll();
     },
     onUpgrade: (Migrator m, int from, int to) async {
-      if (from == 1) {
+      if (from < 4) {
         await m.deleteTable('RouteModel');
-
         await m.createTable(routeModel);
       }
     },

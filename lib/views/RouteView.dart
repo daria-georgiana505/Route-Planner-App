@@ -59,15 +59,6 @@ class _RouteViewState extends State<RouteView> {
     return formatter.format(dateTime);
   }
 
-  String _parseDurationAsString(Duration duration)
-  {
-    int days = duration.inDays;
-    int hours = duration.inHours % 24;
-    int minutes = duration.inMinutes % 60;
-
-    return '${days}d ${hours}h ${minutes}m';
-  }
-
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -82,9 +73,8 @@ class _RouteViewState extends State<RouteView> {
                 endLocation: widget.route.endLocation,
                 startDateTime: widget.route.startDateTime,
                 distanceKm: widget.route.distanceKm,
-                travelTime: Duration(minutes: widget.route.travelTime),
                 notificationsEnabled: widget.route.notificationsEnabled,
-                onSubmit: (startLocation, endLocation, startDateTime, distanceKm, travelTime, notificationsEnabled) async {
+                onSubmit: (startLocation, endLocation, startDateTime, distanceKm, notificationsEnabled) async {
                   try {
                     await Provider.of<RouteViewModel>(context, listen: false)
                         .updateRoute(
@@ -93,7 +83,6 @@ class _RouteViewState extends State<RouteView> {
                             endLocation,
                             startDateTime,
                             distanceKm,
-                            travelTime,
                             notificationsEnabled);
                     if (context.mounted) {
                       Navigator.pop(context);
@@ -156,15 +145,6 @@ class _RouteViewState extends State<RouteView> {
                 ),
                 Text(
                   '${widget.route.distanceKm}',
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  'Travel time:',
-                  style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  _parseDurationAsString(Duration(minutes: widget.route.travelTime)),
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 const SizedBox(height: 10),

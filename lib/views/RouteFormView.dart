@@ -1,6 +1,5 @@
 
 import 'package:date_time_picker/date_time_picker.dart';
-import 'package:duration_picker_dialog_box/duration_picker_dialog_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile_non_native/views/AppBarLayoutWidget.dart';
@@ -10,9 +9,8 @@ class RouteFormView extends StatefulWidget {
   String endLocation;
   DateTime startDateTime;
   double distanceKm;
-  Duration travelTime;
   bool notificationsEnabled;
-  void Function(String, String, DateTime, double, Duration, bool) onSubmit;
+  void Function(String, String, DateTime, double, bool) onSubmit;
 
   RouteFormView({
     super.key,
@@ -20,7 +18,6 @@ class RouteFormView extends StatefulWidget {
     required this.endLocation,
     required this.startDateTime,
     required this.distanceKm,
-    required this.travelTime,
     required this.notificationsEnabled,
     required this.onSubmit
   });
@@ -35,7 +32,7 @@ class _RouteFormViewState extends State<RouteFormView> {
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      widget.onSubmit(widget.startLocation, widget.endLocation, widget.startDateTime, widget.distanceKm, widget.travelTime, widget.notificationsEnabled);
+      widget.onSubmit(widget.startLocation, widget.endLocation, widget.startDateTime, widget.distanceKm, widget.notificationsEnabled);
       // Navigator.pop(context);
     }
   }
@@ -168,23 +165,6 @@ class _RouteFormViewState extends State<RouteFormView> {
                       }
                     },
                   ),
-                  const SizedBox(height: 16),
-
-                  Text(
-                      'Duration',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: Theme.of(context).primaryColor
-                    ),
-                  ),
-                  DurationPicker(
-                    duration: widget.travelTime,
-                    onChange: (value) {
-                      setState(() {
-                        widget.travelTime = value;
-                      });
-                    },
-                  ),
-
                   const SizedBox(height: 16),
 
                   CheckboxListTile(

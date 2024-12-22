@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
         title: 'Route planner',
         debugShowCheckedModeBanner: false,
-        theme: CustomTheme.lightThemeData(),
+        theme: CustomTheme.darkThemeData(),
         darkTheme: CustomTheme.darkThemeData(),
           themeMode: ThemeMode.system,
           home: HomeScreenView()
