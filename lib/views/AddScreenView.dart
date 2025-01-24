@@ -14,17 +14,39 @@ class AddScreenView extends StatefulWidget {
 class _AddScreenViewState extends State<AddScreenView> {
   @override
   Widget build(BuildContext context) {
-    return RouteFormView(
-      startLocation: '',
-      endLocation: '',
-      startDateTime: DateTime.now(),
-      distanceKm: 0.0,
-      travelTime: Duration.zero,
-      notificationsEnabled: false,
-      onSubmit: (startLocation, endLocation, startDateTime, distanceKm, travelTime, notificationsEnabled) {
-        Provider.of<RouteViewModel>(context, listen: false)
-            .addRoute(startLocation, endLocation, startDateTime, distanceKm, travelTime, notificationsEnabled);
-      },
+    return Consumer<RouteViewModel>(
+        builder: (context, viewModel, child)
+        {
+          return RouteFormView(
+            startLocation: '',
+            endLocation: '',
+            startDateTime: DateTime.now(),
+            distanceKm: 0.0,
+            notificationsEnabled: false,
+            onSubmit: (startLocation, endLocation, startDateTime, distanceKm,
+                 notificationsEnabled) async {
+              try {
+                await Provider.of<RouteViewModel>(context, listen: false).addRoute(
+                  startLocation,
+                  endLocation,
+                  startDateTime,
+                  distanceKm,
+                  notificationsEnabled);
+                if (context.mounted) {
+                  Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Route added successfully')));
+                }
+              } catch (e) {
+                if (context.mounted) {
+                  Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Failed to add route: $e')));
+                }
+              }
+            },
+          );
+        }
     );
   }
 }
